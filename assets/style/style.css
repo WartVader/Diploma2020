@@ -1,0 +1,234 @@
+/* @media (min-width: 1200px)
+{
+    .navbar {
+        max-width: 1140px;
+    }    
+}
+@media (min-width: 992px) and (max-width: 1199px)
+{
+    .navbar {
+        max-width: 960px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px)
+{
+    .navbar {
+        max-width: 720px;
+    }    
+}
+@media (min-width: 576px) and (max-width: 767px)
+{
+    .navbar {
+        max-width: 540px;
+    }    
+}
+*/
+
+/* Main blocks in HTML */
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background-color: #f1f1f1 !important;
+}
+
+footer {
+    min-height: 6rem;
+}
+
+/* ========================================================= */
+
+
+/* My classes */
+
+.p.container{
+    padding-left: 10rem;
+    padding-right: 10rem;
+}
+
+.bg-main-black-color {
+    background-color: #1f1f1f;
+}
+
+.txt-main-black-color {
+    color: #1f1f1f;
+}
+
+footer.bg-main-black-color {
+    background-color: #1f1f1f;
+    color: rgba(255,255,255, 0.5);
+}
+
+.info{
+    height:100%;
+    width: 400px;
+}
+
+.icon {
+    display: inline-block; 
+    stroke-width: 0; 
+    stroke: currentColor; 
+    fill: currentColor; 
+    max-width: 100%; 
+}
+
+.search{
+    border: none !important;
+}
+
+form.search{
+    border-radius: 15px !important;
+    position: relative;
+}
+
+input.search{
+    border-radius: 0px;
+    width: 70% !important;
+}
+
+button.search{
+    background-color: #302e2e00 !important;
+    width: 40px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+button.user{
+    background-color: rgba(255,255,255, 0) !important;
+    border: 0;
+
+}
+
+.fa-search{
+    color: #302e2e;
+    font-size: 1rem ;
+}
+
+.fa-user{
+    color: #ffffffa4;
+}
+
+
+input:focus{
+    box-shadow: 0 0 0 0 !important;
+}
+
+button, 
+button:active, 
+button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+/* ========================================================= */
+
+/* For registration and login */
+
+.form-block{
+    padding-top: 10rem;
+}
+
+input.form-control{
+    border: none !important;
+}
+
+.registration{
+
+}
+
+.block-absolute{
+    /* float:left; */
+    height: 550px;
+    width: 444px;
+    left: 100px;
+}
+
+.selected{
+    height: 550px;
+    width: 444px;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    background-color: rgb(179, 23, 82);
+    
+    
+
+}
+
+.none-selected{
+    width: 40%;
+    height: 20rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    background-color: #302e2e;
+    
+
+}
+
+.select_login{
+
+}
+/* ========================================================= */
+/* profile classes */
+
+.fake-avatar{
+    background-color: rgb(148, 148, 148);
+    width: 250px;
+    height: 250px;
+}
+.fake-poster{
+    background-color: rgb(148, 148, 148);
+    width: 250px;
+    height: calc(250px * 1.4);
+
+    transition: 0.5s;
+}
+
+.fake-poster:hover{
+    background-color: rgb(104, 104, 104);
+
+    transition: 0.5s;
+}
+
+.cross-poster{
+    margin-top: 0.5rem;
+    color: white;
+    opacity:0; /*Элемент полностью прозрачный (невидимый)*/
+    transition: 0.5s; /*Скорость перехода состояния элемента*/
+}
+
+.fake-poster:hover .cross-poster{
+    opacity:1;
+    transition: 0.5s;
+}
+
+.tag{
+    background-color: none !important;
+}
+
+/* ========================================================= */
+
+
+
+/* Changes in bootstrap classes (it won't cause problems) */
+
+div.container {
+    /* background-color: white; */
+    min-height: calc(100vh - 5rem - 6rem);
+}
+
+.navbar {
+    height: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========================================================= */
