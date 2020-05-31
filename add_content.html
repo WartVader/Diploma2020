@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="rus">
+	<head>
+		<!-- Запрет на кэширование данных -->
+		<!-- <meta http-equiv="Cache-Control" content="no-cache"> -->
+
+		<title>Title</title>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+		<link rel="stylesheet" type="text/css" href="./assets/style/style.css" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<div class="sticky-top bg-main-black-color">
+			<nav class="navbar navbar-expand-sm navbar-dark container">
+				<a class="navbar-brand" href="./index.html">Logo</a>
+				<button
+					class="navbar-toggler d-lg-none"
+					type="button"
+					data-toggle="collapse"
+					data-target="#collapsibleNavId"
+					aria-controls="collapsibleNavId"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapsibleNavId">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="./index.html">Главная<span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./contents.html">Фильмы</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Сериалы</a>
+						</li>
+					</ul>
+					<form class="search bg-white form-inline my-2 my-lg-0">
+						<input class="border-0 search form-control ml-3 mr-sm-2" type="text" placeholder="Search" />
+						<button class="mx-auto search pos-abs border-0" type="submit">
+							<i class="fa fa-search fa-lg"> </i>
+						</button>
+					</form>
+
+					<ul class="ml-5 navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="./registration.html">Войти</a>
+						</li>
+					</ul>
+					<div class="ml-5 btn-group">
+						<button class="btn btn-secondary dropdown user" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+							<i class="far fa-user fa-2x"></i>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+							<a class="dropdown-item" href="./profile.html">Профиль</a>
+							<a class="dropdown-item" href="#">Любимое</a>
+							<a class="dropdown-item" href="#">Выйти</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="p container bg-white">
+			<h1>Добавление нового контента</h1>
+			<div class="mt-5">
+				<!-- https://www.kinopoisk.ru/index.php?kp_query= -->
+				<!-- Это get запрос на поиск в кинопоиске -->
+				<div class="d-flex justify-content-center mb-5">
+					<input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
+					<input type="text" class="form-control mr-5" name="year" id="year" placeholder="Год выпуска" value="" />
+					<button id="search-add" class="btn btn-primary">
+						Поиск
+					</button>
+				</div>
+			</div>
+			<div id="not-found" hidden="true">Не найдено</div>
+			<div id="search-add-block" hidden="true">
+				<div class="content-block d-flex">
+					<a href="" id="linkIMDB" class="mb-4 overflow-hidden position-relative">
+						<img class="poster" src="" alt="" />
+					</a>
+					<div class="ml-5 info">
+						<h1 id="title"></h1>
+						<div class="description"></div>
+					</div>
+				</div>
+				<div class="w-100">
+					<button id="add-content" class="btn btn-primary w-100">
+						Добавить
+					</button>
+				</div>
+			</div>
+			<!-- <iframe class="w-100 h-100" src='https://www.imdb.com/title/tt7668870/?ref_=adv_li_tt' ></iframe> -->
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"
+		></script>
+
+		<script>
+			$(document).ready(function () {
+				var data;
+				var inputName = document.getElementById("name").value;
+
+				//http://www.omdbapi.com/?t=garden&plot=full
+				$("#search-add").click(function () {
+					var inputName = document.getElementById("name").value;
+					//inputName = inputName.replace(/ /g, "+");
+					var inputYear = document.getElementById("year").value;
+
+					inputYear = "&y=" + inputYear;
+					console.log(inputName, inputYear);
+
+					var request = new XMLHttpRequest();
+
+					request.open("GET", "http://www.omdbapi.com/?t=" + inputName + inputYear + "&plot=full&apikey=3acccab2", true);
+					request.onload = function () {
+						data = JSON.parse(this.response);
+						if (data.Response != "False") {
+							var linkToIMDB = "https://www.imdb.com/title/" + data.imdbID + "/";
+
+							var block = document.getElementById("search-add-block");
+							block.hidden = false;
+							var er404 = document.getElementById("not-found");
+							er404.hidden = true;
+
+							var title = document.getElementById("title");
+							var descr = document.getElementsByClassName("description")[0];
+							var poster = document.getElementsByClassName("poster")[0];
+							var IMDB = document.getElementById("linkIMDB");
+							IMDB.setAttribute("href", linkToIMDB);
+							title.textContent = data.Title;
+							descr.textContent = data.Plot;
+							console.log(data.Poster);
+							poster.setAttribute("src", data.Poster);
+
+							console.log(data);
+						} else {
+							var er404 = document.getElementById("not-found");
+							er404.hidden = false;
+							var block = document.getElementById("search-add-block");
+							block.hidden = true;
+						}
+					};
+
+					request.send();
+				});
+				$("#add-content").click(function () {
+					let date = new Date(data.Released);
+
+					console.log(date);
+					console.log("=====");
+					data.Released = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+					//data.Released = data.Released.format("yyyy-mm-dd");
+					//data.Released = data.Released.toString();
+					$.post(
+						"./assets/php/addContent.php", // адрес обработчика
+						data, // отправляемые данные
+
+						function (msg) {
+							// получен ответ сервера
+							console.log(msg);
+						}
+					);
+				});
+			});
+		</script>
+	</body>
+</html>

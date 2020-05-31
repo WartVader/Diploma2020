@@ -5,7 +5,6 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
 		<link rel="stylesheet" href="assets/style/style.css" />
 
 		<!-- Font Awesome -->
@@ -72,54 +71,23 @@
 				</div>
 			</nav>
 		</div>
-		<div class="p container bg-white pt-4">
-			<div class="main-info d-flex">
-				<div class="avatar">
-					<div class="fake-avatar"></div>
+		<div class="p container bg-white pb-5">
+			<div hidden="true" class="content-block mb-5">
+				<div class="poster-block position-relative">
+					<a href="" class="poster-link overflow-hidden">
+						<img class="poster" src="" alt="" />
+					</a>
+					<button onclick="" class="icon-appear clear position-absolute">
+						<i class="far fa-heart"></i>
+					</button>
 				</div>
 				<div class="ml-5 info">
-					<h1 id="username"></h1>
-					<h4 id="user_login"></h4>
-					<div id="birthday"></div>
-					<a href="">Изменить данные</a>
-				</div>
-			</div>
-			<div class="l-tags mt-4">
-				<h1>Любимые теги</h1>
-				<div class="mt-4 tags-field">
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-					<button class="btn btn-outline-primary rounded-pill mb-1 tag">Какой-то тег <i class="ml-2 fas fa-times"></i></button>
-				</div>
-				<a class="mt-3 float-right" href="">Изменить</a>
-			</div>
-			<div class="l-content mt-4">
-				<h1>Любимый контент</h1>
-				<div class="mt-4 content-field content d-flex justify-content-between flex-wrap">
-					<div hidden="true" id="" class="content-block mb-4">
-						<div class="poster-block position-relative">
-							<a href="" class="poster-link overflow-hidden">
-								<img class="poster" src="" alt="" />
-							</a>
-							<button onclick="" class="icon-appear clear position-absolute">
-								<i class="fas fa-heart"></i>
-							</button>
-						</div>
-					</div>
+					<h1 class="title"></h1>
+					<div class="description"></div>
 				</div>
 			</div>
 		</div>
+
 		<footer class="container bg-main-black-color navbar-fixed-bottom d-flex flex-column justify-content-center">
 			<a class="mt-3 mx-auto text-white" href="#">Logo</a>
 			<div class="my-auto px-5 py-4">
@@ -131,6 +99,7 @@
 				</div>
 			</div>
 		</footer>
+
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -150,13 +119,11 @@
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
 		<script>
+			var data; //Данные о контенте
+			var user = GetUser();
+			console.log(user);
 			$(document).ready(function () {
-				/* var user = GetUser();
-				console.log(user); */
-				document.getElementById("username").textContent = window.user.username;
-				document.getElementById("user_login").textContent = window.user.login;
-
-				LoadFv();
+				LoadFull();
 			});
 		</script>
 	</body>
