@@ -10,7 +10,7 @@ function GetUser() {
 	var data;
 
 	var request = new XMLHttpRequest();
-	request.open("POST", "./assets/php/getUserInfo.php", false);
+	request.open("POST", "./assets/php/index.php?method=getUserInfo", false);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send();
 

@@ -72,18 +72,42 @@
 			</nav>
 		</div>
 		<div class="p container bg-white pb-5">
-			<div hidden="true" class="content-block mb-5">
-				<div class="poster-block position-relative">
-					<a href="" class="poster-link overflow-hidden">
+			<div hidden="true" class="content-block main-info mb-5">
+				<div class="poster-block position-relative overflow-hidden">
+					<a href="" class="poster-link">
 						<img class="poster" src="" alt="" />
 					</a>
 					<button onclick="" class="icon-appear clear position-absolute">
 						<i class="far fa-heart"></i>
 					</button>
 				</div>
-				<div class="ml-5 info">
-					<h1 class="title"></h1>
-					<div class="description"></div>
+
+				<div class="ml-5 block-info flex-grow-1">
+					<div class="full-info">
+						<h1 class="title"></h1>
+						<div class="description"></div>
+					</div>
+					<div class="rating-block">
+						<div class="mb-5 rating">
+							<div class="float-left align-middle">
+								<!-- <i id="full-star" class="fas fa-star float-left d-inline align-middle"></i> -->
+								<h3 class="float-left d-inline align-middle mr-2" id="users-rating"></h3>
+								<button class="btn btn-primary float-right d-inline align-middle" id="rate">Оценить</button>
+							</div>
+
+							<h3 class="float-right" id="imdb-rating"></h3>
+						</div>
+
+						<!-- <div id="stars" class="stars-rating">
+							<div hidden="true">
+								<i id="full-star" class="fas fa-star"></i>
+								<i id="half-star" class="fas fa-star-half"></i>
+								<i id="empty-star" class="far fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div> -->
+					</div>
 				</div>
 			</div>
 		</div>

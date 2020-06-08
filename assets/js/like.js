@@ -2,13 +2,13 @@ function Like(id) {
 	if (window.user.id != null) {
 		let send = { id: id };
 		$.post(
-			"./assets/php/addToFv.php", // адрес обработчика
+			"./assets/php/index.php?method=addToFv", // адрес обработчика
 			send, // отправляемые данные
 
 			function (msg) {
 				// получен ответ сервера
 				//data = JSON.parse(msg);
-				console.log(msg, send);
+				console.log(msg);
 			}
 		);
 		ChangeStatus(id, true);
@@ -22,7 +22,7 @@ function Like(id) {
 function Unlike(id) {
 	let send = { id: id };
 	$.post(
-		"./assets/php/removeFv.php", // адрес обработчика
+		"./assets/php/index.php?method=removeFv", // адрес обработчика
 		send, // отправляемые данные
 
 		function (msg) {
@@ -53,7 +53,7 @@ function GetFv(id) {
 	var data;
 
 	var request = new XMLHttpRequest();
-	request.open("POST", "./assets/php/getFvContent.php", false);
+	request.open("POST", "./assets/php/index.php?method=getFvContent", false);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	if (id) {
 		let send = "id=" + id;

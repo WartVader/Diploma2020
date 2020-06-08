@@ -47,7 +47,7 @@ function DisplayFullData(data) {
 	while (i < data.length) {
 		var block = document.getElementsByClassName("content-block")[0].cloneNode(true); //блок контента
 		block.removeAttribute("hidden");
-		block.setAttribute("class", "content-block mb-5 d-flex");
+		block.setAttribute("class", "content-block main-info mb-5 d-flex");
 		block.setAttribute("id", data[i].id);
 
 		var linkToContent = "./content-page.html?id=" + data[i].id; //GET запрос на вывод контента с id
@@ -98,8 +98,9 @@ function DisplayFv(data) {
 	}
 }
 
-function DisplayFull(data) {
+function DisplayMain(data) {
 	let isFv = GetFv(data.id);
+	console.log(isFv);
 
 	//Заполнение полей на странице с полной информацией о контенте
 	document.getElementsByClassName("main-info")[0].setAttribute("id", data.id);
@@ -117,5 +118,46 @@ function DisplayFull(data) {
 	} else {
 		document.getElementsByClassName("icon-appear")[0].setAttribute("onclick", "Like(" + data.id + ")");
 		document.getElementsByClassName("fa-heart")[0].setAttribute("class", "far fa-heart");
+	}
+}
+
+function DisplaySearchKP(data) {
+	var searchBlock = document.getElementById("search-add-block");
+	searchBlock.hidden = false;
+
+	$(".content-block + .content-block").remove();
+
+	var i = 0;
+	console.log(data.films.length);
+	while (i < data.films.length) {
+		console.log("while");
+		var block = document.getElementsByClassName("content-block")[0].cloneNode(true); //блок контента
+		block.hidden = false;
+		block.setAttribute("class", "content-block main-info mb-5 d-flex");
+		block.setAttribute("name", "content-block");
+		block.setAttribute("id", data.films[i].id);
+
+		var linkToContent = "https://www.kinopoisk.ru/film/" + data.films[i].filmId + "/"; //GET запрос на вывод контента с id
+
+		block.getElementsByTagName("a")[0].setAttribute("href", linkToContent); //ссылка на контент
+		block.getElementsByClassName("title")[0].setAttribute("class") = data.films[i].nameRu; // Наименование контента
+		block.getElementsByClassName("title")[0].textContent = data.films[i].nameRu; // Наименование контента
+		if (data.films[i].nameEn != "") block.getElementsByClassName("eng-title")[0].textContent = data.films[i].nameEn;
+		if (data.films[i].filmLength != "") block.getElementsByClassName("time")[0].textContent = data.films[i].filmLength;
+		let j = 0;
+		while (j < data.films[i].genres.length) {
+			block.getElementsByClassName("genres")[0].textContent += data.films[i].genres[j].genre;
+			j++;
+			if (j != data.films[i].genres.length) block.getElementsByClassName("genres")[0].textContent += ", ";
+			else block.getElementsByClassName("genres")[0].textContent += ";";
+		}
+		block.getElementsByClassName("year")[0].textContent = data.films[i].year;
+		//block.getElementsByClassName("description")[0].textContent = data[i].description; //описание контента
+		block.getElementsByClassName("poster")[0].setAttribute("src", data.films[i].posterUrl); //постер контента
+
+		//console.log(block);
+
+		document.getElementById("search-add-block").appendChild(block);
+		i++;
 	}
 }

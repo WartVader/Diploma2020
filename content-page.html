@@ -74,27 +74,89 @@
 		</div>
 		<div class="p container bg-white">
 			<div id="" class="main-info d-flex">
-				<div class="poster-block position-relative">
-					<a href="" class="poster-link overflow-hidden">
+				<div class="poster-block position-relative overflow-hidden">
+					<a href="" class="poster-link">
 						<img id="poster" class="poster" src="" alt="" />
 					</a>
 					<button onclick="" class="icon-appear clear position-absolute">
 						<i class="far fa-heart"></i>
 					</button>
 				</div>
-				<div class="ml-5 info">
-					<h1 id="title">Название фильма</h1>
-					<div id="content-metadata">
-						<ul>
-							<li id="actors"></li>
-							<li id="writer"></li>
-							<li id="country"></li>
-							<li id="time"></li>
-						</ul>
+				<div class="ml-5 block-info flex-grow-1">
+					<div class="full-info">
+						<h1 id="title" class="mb-3">Название фильма</h1>
+						<div id="content-metadata">
+							<ul class="pl-0">
+								<li id="actors"></li>
+								<li id="writer"></li>
+								<li id="country"></li>
+								<li id="time"></li>
+							</ul>
+						</div>
+						<div class="rating-block">
+							<div class="mb-5 rating">
+								<div class="float-left align-middle">
+									<!-- <i id="full-star" class="fas fa-star float-left d-inline align-middle"></i> -->
+									<h3 class="float-left d-inline align-middle mr-2 mb-0" id="users-rating"></h3>
+									<button
+										class="btn btn-star-active float-right align-middle"
+										type="button"
+										data-toggle="collapse"
+										data-target="#RateThisContent"
+										aria-expanded="false"
+										aria-controls="collapseExample"
+									>
+										<i id="star-status" class="far fa-star"></i>
+									</button>
+								</div>
+
+								<h3 class="float-right" id="imdb-rating"></h3>
+							</div>
+							<div class="collapse" id="RateThisContent">
+								<div class="card card-body px-0 pb-0 border-0">
+									<div id="stars" class="stars-rating d-flex align-items-center">
+										<h3 id="chosen-rating" class="mb-0"></h3>
+										<div class="d-flex flex-row-reverse float-right ml-auto">
+											<button rating="10" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="9" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="8" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="7" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="6" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="5" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="4" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="3" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="2" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+											<button rating="1" class="btn btn-star px-0" type="button">
+												<i class="fas fa-star star-rating"></i>
+											</button>
+										</div>
+									</div>
+									<div id="unrate" hidden="true"><button onclick="Unrate()" class="btn btn-danger">Убрать оценку</button></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="description mt-4 mb-5">
+			<div class="description text-justify mt-4 mb-5">
 				description...
 			</div>
 		</div>
@@ -127,13 +189,37 @@
 		<script src="assets/js/like.js"></script>
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
+		<script src="assets/js/ratingDisplay.js"></script>
+		<script src="assets/js/rateContent.js"></script>
 
 		<script>
 			let url = new URL(document.URL);
-			let id = url.searchParams.get("id");
-			console.log(id);
+			var id = url.searchParams.get("id");
+			var userRating = getUserRating();
+			console.log(userRating);
+
 			$(document).ready(function () {
+				if (userRating != null) {
+					$("#stars").hide();
+					$("#stars").removeClass("d-flex");
+					document.getElementById("unrate").hidden = false;
+					$("#star-status").addClass("fas");
+					$("#star-status").removeClass("far");
+				}
 				LoadMainContent(id);
+			});
+
+			$(".btn-star").hover(
+				function () {
+					document.getElementById("chosen-rating").textContent = $(this).attr("rating");
+				},
+				function () {
+					document.getElementById("chosen-rating").textContent = "";
+				}
+			);
+			$(".btn-star").click(function () {
+				userRating = $(this).attr("rating");
+				RateContent(id, userRating);
 			});
 		</script>
 	</body>

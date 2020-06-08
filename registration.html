@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="assets/style/style.css" />
 		<link rel="stylesheet" href="assets/style/animation.css" />
 
-		<script src="/assets/js/slide-animation.js"></script>
+		<!-- <script src="/assets/js/slide-animation.js"></script> -->
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
 
@@ -193,7 +193,7 @@
 				console.log($("#r_form").data());
 
 				$.post(
-					"./assets/php/registration.php", // адрес обработчика
+					"./assets/php/index.php?method=registration", // адрес обработчика
 					$("#r_form").serializeArray(), // отправляемые данные
 
 					function (msg) {
@@ -206,17 +206,17 @@
 				console.log($("#l_form").data());
 				JSON.stringify($("#l_form").serializeArray());
 				$.post(
-					"./assets/php/login.php", // адрес обработчика
+					"./assets/php/index.php?method=login", // адрес обработчика
 					$("#l_form").serializeArray(), // отправляемые данные
 
 					function (msg) {
 						// получен ответ сервера
 						console.log(msg);
-						document.location.href = "http://diplom/index.html";
+						if (msg == "true") document.location.href = "http://diplom/index.html";
 					}
 				);
 			});
-			$("#login_i").on("change", function () {
+			/* $("#login_i").on("change", function () {
 				let check = 0;
 				check = setTimeout(function () {
 					$.post(
@@ -230,7 +230,7 @@
 						}
 					);
 				}, 500); //скрипт по проверке логинов в БД
-			});
+			}); */
 		</script>
 	</body>
 </html>

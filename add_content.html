@@ -56,19 +56,20 @@
 						</button>
 					</form>
 
-					<ul class="ml-5 navbar-nav">
+					<ul hidden="true" id="login" class="ml-5 navbar-nav float-right">
 						<li class="nav-item">
-							<a class="nav-link" href="./registration.html">Войти</a>
+							<a id="" class="nav-link" href="./registration.html">Войти</a>
 						</li>
 					</ul>
 					<div class="ml-5 btn-group">
-						<button class="btn btn-secondary dropdown user" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+						<button class="btn btn-secondary dropdown user" type="button" id="user-icon" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
 							<i class="far fa-user fa-2x"></i>
 						</button>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-icon">
 							<a class="dropdown-item" href="./profile.html">Профиль</a>
 							<a class="dropdown-item" href="#">Любимое</a>
-							<a class="dropdown-item" href="#">Выйти</a>
+							<a id="add-new-content" class="dropdown-item" href="./add_content.html">Добавить новый контент</a>
+							<a class="dropdown-item" href="./assets/php/exit.php">Выйти</a>
 						</div>
 					</div>
 				</div>
@@ -80,28 +81,40 @@
 				<!-- https://www.kinopoisk.ru/index.php?kp_query= -->
 				<!-- Это get запрос на поиск в кинопоиске -->
 				<div class="d-flex justify-content-center mb-5">
-					<input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
+					<form id="form" class="d-flex justify-content-center">
+						<input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
+						<input type="text" class="form-control mr-5" name="year" id="year" placeholder="Год выпуска" value="" />
+
+						<input type="submit" class="btn btn-primary" value="Поиск" />
+					</form>
+
+					<!-- <input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
 					<input type="text" class="form-control mr-5" name="year" id="year" placeholder="Год выпуска" value="" />
-					<button id="search-add" class="btn btn-primary">
+					<button id="search-add" onclick="SearchKP_name()" class="btn btn-primary">
 						Поиск
-					</button>
+					</button> -->
 				</div>
 			</div>
 			<div id="not-found" hidden="true">Не найдено</div>
 			<div id="search-add-block" hidden="true">
-				<div class="content-block d-flex">
-					<a href="" id="linkIMDB" class="mb-4 overflow-hidden position-relative">
+				<div class="content-block" hidden="true">
+					<a href="" id="linkIMDB" class="position-relative">
 						<img class="poster" src="" alt="" />
 					</a>
-					<div class="ml-5 info">
-						<h1 id="title"></h1>
-						<div class="description"></div>
+					<div class="ml-5 info d-flex flex-column">
+						<h1 class="title"></h1>
+						<div class="mini-info">
+							<div class="eng-title"></div>
+							<div class="time"></div>
+							<div class="genres"></div>
+							<div class="year"></div>
+						</div>
+						<div class="w-100 mt-auto">
+							<button class="btn btn-primary w-100 add-content">
+								Добавить
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="w-100">
-					<button id="add-content" class="btn btn-primary w-100">
-						Добавить
-					</button>
 				</div>
 			</div>
 			<!-- <iframe class="w-100 h-100" src='https://www.imdb.com/title/tt7668870/?ref_=adv_li_tt' ></iframe> -->
@@ -119,65 +132,46 @@
 			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 			crossorigin="anonymous"
 		></script>
+		<script src="assets/js/checkUser.js"></script>
+		<script src="assets/js/like.js"></script>
+		<script src="assets/js/displayCards.js"></script>
+		<script src="assets/js/loadContent.js"></script>
+		<script src="./assets/js/searchKinopoisk.js"></script>
 
 		<script>
+			var request = new XMLHttpRequest();
+			$("#form").submit(function (e) {
+				e.preventDefault();
+				Search();
+			});
+			//return data;
+			/* //let send = { id: id };
+				$.post(
+					//test.php?method=searchFilms&params[keyword]=первый&params[page]=3
+					"./kinopoisk-api/test.php", // адрес обработчика
+					null, // отправляемые данные
+
+					function (msg) {
+						// получен ответ сервера
+						//data = JSON.parse(msg);
+						console.log("===");
+						console.log(msg);
+						//location.reload();
+					}
+				); */
 			$(document).ready(function () {
 				var data;
 				var inputName = document.getElementById("name").value;
 
 				//http://www.omdbapi.com/?t=garden&plot=full
-				$("#search-add").click(function () {
-					var inputName = document.getElementById("name").value;
-					//inputName = inputName.replace(/ /g, "+");
-					var inputYear = document.getElementById("year").value;
-
-					inputYear = "&y=" + inputYear;
-					console.log(inputName, inputYear);
-
-					var request = new XMLHttpRequest();
-
-					request.open("GET", "http://www.omdbapi.com/?t=" + inputName + inputYear + "&plot=full&apikey=3acccab2", true);
-					request.onload = function () {
-						data = JSON.parse(this.response);
-						if (data.Response != "False") {
-							var linkToIMDB = "https://www.imdb.com/title/" + data.imdbID + "/";
-
-							var block = document.getElementById("search-add-block");
-							block.hidden = false;
-							var er404 = document.getElementById("not-found");
-							er404.hidden = true;
-
-							var title = document.getElementById("title");
-							var descr = document.getElementsByClassName("description")[0];
-							var poster = document.getElementsByClassName("poster")[0];
-							var IMDB = document.getElementById("linkIMDB");
-							IMDB.setAttribute("href", linkToIMDB);
-							title.textContent = data.Title;
-							descr.textContent = data.Plot;
-							console.log(data.Poster);
-							poster.setAttribute("src", data.Poster);
-
-							console.log(data);
-						} else {
-							var er404 = document.getElementById("not-found");
-							er404.hidden = false;
-							var block = document.getElementById("search-add-block");
-							block.hidden = true;
-						}
-					};
-
-					request.send();
-				});
 				$("#add-content").click(function () {
 					let date = new Date(data.Released);
 
-					console.log(date);
-					console.log("=====");
 					data.Released = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 					//data.Released = data.Released.format("yyyy-mm-dd");
 					//data.Released = data.Released.toString();
 					$.post(
-						"./assets/php/addContent.php", // адрес обработчика
+						"./assets/php/index.php?method=addContent", // адрес обработчика
 						data, // отправляемые данные
 
 						function (msg) {

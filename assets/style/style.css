@@ -31,7 +31,7 @@ html {
 }
 
 body {
-	background-color: #f1f1f1 !important;
+	/* background-color: #f1f1f1 !important; */
 }
 
 footer {
@@ -59,11 +59,6 @@ footer {
 footer.bg-main-black-color {
 	background-color: #1f1f1f;
 	color: rgba(255, 255, 255, 0.5);
-}
-
-.info {
-	height: 100%;
-	width: 400px;
 }
 
 .icon {
@@ -197,10 +192,65 @@ button:focus {
 	transition: 0.5s;
 }
 
+.content {
+	margin: 0 -1rem;
+}
+
+.content-block + .content-block {
+	/* margin-left: auto; */
+	margin: 0 1rem;
+}
+
+.block-info {
+	position: relative;
+}
+.full-info {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.rating-block {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.info {
+	width: 400px;
+}
+
+.fa-star {
+	font-size: 1.5rem;
+	/* vertical-align: baseline; */
+}
+.star-rating {
+	font-size: 1rem !important;
+}
+
+.btn-star:hover ~ .btn-star {
+	color: #ffe135 !important;
+}
+.btn-star:hover {
+	color: #ffe135 !important;
+}
+.btn-star {
+	color: grey !important;
+}
+.btn-star-active:hover {
+	color: #ffe135 !important;
+}
+
 .content-block {
 	max-height: calc(250px * 1.4);
 	overflow: hidden; /* Обрезаем все, что не помещается в область */
 	text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+.poster {
+	object-fit: cover;
 }
 
 .poster,
@@ -229,6 +279,10 @@ button:focus {
 
 .tag {
 	background-color: none !important;
+}
+
+.description {
+	text-align: justify;
 }
 
 /* ========================================================= */

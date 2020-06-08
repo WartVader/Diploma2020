@@ -1,7 +1,7 @@
 function LoadMini() {
 	let data;
 	$.post(
-		"./assets/php/loadContent.php", // адрес обработчика
+		"./assets/php/index.php?method=loadContent", // адрес обработчика
 		null, // отправляемые данные
 
 		function (msg) {
@@ -15,7 +15,7 @@ function LoadMini() {
 function LoadFull() {
 	let data;
 	$.post(
-		"./assets/php/loadContent.php", // адрес обработчика
+		"./assets/php/index.php?method=loadContent", // адрес обработчика
 		null, // отправляемые данные
 
 		function (msg) {
@@ -35,14 +35,14 @@ function LoadFv() {
 function LoadMainContent(id) {
 	let send = { id: id };
 	$.post(
-		"./assets/php/loadMainContent.php", // адрес обработчика
+		"./assets/php/index.php?method=loadMainContent", // адрес обработчика
 		send, // отправляемые данные
 
 		function (msg) {
 			// получен ответ сервера
 			data = JSON.parse(msg);
 			//console.log(msg);
-			DisplayFull(data);
+			DisplayMain(data);
 		}
 	);
 }
