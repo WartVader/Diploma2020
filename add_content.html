@@ -136,13 +136,14 @@
 		<script src="assets/js/like.js"></script>
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
-		<script src="./assets/js/searchKinopoisk.js"></script>
+		<script src="assets/js/searchKinopoisk.js"></script>
 
 		<script>
 			var request = new XMLHttpRequest();
 			$("#form").submit(function (e) {
 				e.preventDefault();
-				Search();
+				var inputName = document.getElementById("name").value;
+				SearchKP_name(inputName);
 			});
 			//return data;
 			/* //let send = { id: id };

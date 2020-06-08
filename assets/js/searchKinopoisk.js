@@ -1,41 +1,110 @@
 function SearchKP_name(name, year) {
-	var inputName;
-	var inputYear;
 	var data;
 
-	if (!name) inputName = document.getElementById("name").value;
-	else inputName = name;
-	if (!year) inputYear = document.getElementById("year").value;
-	else inputYear = year;
+	var request = new XMLHttpRequest();
+	let send = "name=" + name;
+	request.open("POST", "/assets/php/index.php?method=searchKP_name", true);
+	request.onload = function () {
+		data = JSON.parse(this.response);
+		//console.log(this.response);
+		if (data.Response != "False") {
+			data = JSON.parse(request.responseText);
+			console.log(data);
+			//console.log(responseText);
+			DisplaySearchKP(data);
+		} else {
+			var er404 = document.getElementById("not-found");
+			er404.hidden = false;
+			var block = document.getElementById("search-add-block");
+			block.hidden = true;
+		}
+	};
+
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(send);
+
+	/* request.addEventListener("load", function () {
+		data = JSON.parse(request.responseText);
+		console.log(data);
+		if (request.status == 200) {
+			data = JSON.parse(request.responseText);
+			console.log("sch");
+			console.log(data.films);
+			let i = 0;
+			while (i < data.genres.length) {
+				data["fullGenres"] += data.genres[i].genre;
+				i++;
+				if (i != data.genres.length) data["fullGenres"] += ", ";
+			}
+			i = 0;
+			while (i < data.countries.length) {
+				data["fullCountries"] += data.countries[i].country;
+				i++;
+				if (i != data.countries.length) data["fullCountries"] += ", ";
+			}
+			//data = request.responseText;
+			//console.log(data);
+
+			DisplaySearchKP(data);
+			console.log(data);
+		}
+	}); */
+
+	return data;
+}
+
+function SearchKP_id(id) {
+	var data;
 
 	var request = new XMLHttpRequest();
+	let send = "name=" + name;
+	request.open("POST", "/assets/php/index.php?method=searchKP_id", true);
+	request.onload = function () {
+		data = JSON.parse(this.response);
+		//console.log(this.response);
+		if (data.Response != "False") {
+			data = JSON.parse(request.responseText);
+			console.log(data);
+			//console.log(responseText);
+			DisplaySearchKP(data);
+		} else {
+			var er404 = document.getElementById("not-found");
+			er404.hidden = false;
+			var block = document.getElementById("search-add-block");
+			block.hidden = true;
+		}
+	};
 
-	let search = encodeURI("keyword=" + inputName + "&page=1");
-	request.open("GET", "http://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?" + search, false);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.setRequestHeader("X-API-KEY", "cf1fb679-cc1c-43c2-ba84-36f615f6cec2");
+	request.send(send);
 
-	//let send = "keyword=%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B4%D0%BE%D0%B2&page=1";
-	//request.send(send);
-	request.send();
-	if (request.status == 200) {
+	/* request.addEventListener("load", function () {
 		data = JSON.parse(request.responseText);
-		let i = 0;
-		while (i < data.genres.length) {
-			data["fullGenres"] += data.genres[i].genre;
-			i++;
-			if (i != data.genres.length) data["fullGenres"] += ", ";
-		}
-		i = 0;
-		while (i < data.countries.length) {
-			data["fullCountries"] += data.countries[i].country;
-			i++;
-			if (i != data.countries.length) data["fullCountries"] += ", ";
-		}
-		//data = request.responseText;
 		console.log(data);
-	}
-	DisplaySearchKP(data);
+		if (request.status == 200) {
+			data = JSON.parse(request.responseText);
+			console.log("sch");
+			console.log(data.films);
+			let i = 0;
+			while (i < data.genres.length) {
+				data["fullGenres"] += data.genres[i].genre;
+				i++;
+				if (i != data.genres.length) data["fullGenres"] += ", ";
+			}
+			i = 0;
+			while (i < data.countries.length) {
+				data["fullCountries"] += data.countries[i].country;
+				i++;
+				if (i != data.countries.length) data["fullCountries"] += ", ";
+			}
+			//data = request.responseText;
+			//console.log(data);
+
+			DisplaySearchKP(data);
+			console.log(data);
+		}
+	}); */
+
 	return data;
 }
 
@@ -83,7 +152,6 @@ function SearchIMDB() {
 }
 
 function Search(where = "kinopoisk", returnData = false) {
-	console.log("sch");
 	let data;
 	if (where == "kinopoisk") {
 		data = SearchKP_name();

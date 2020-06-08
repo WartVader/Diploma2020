@@ -128,7 +128,7 @@ function DisplaySearchKP(data) {
 	$(".content-block + .content-block").remove();
 
 	var i = 0;
-	console.log(data.films.length);
+	//console.log(data);
 	while (i < data.films.length) {
 		console.log("while");
 		var block = document.getElementsByClassName("content-block")[0].cloneNode(true); //блок контента
@@ -140,7 +140,7 @@ function DisplaySearchKP(data) {
 		var linkToContent = "https://www.kinopoisk.ru/film/" + data.films[i].filmId + "/"; //GET запрос на вывод контента с id
 
 		block.getElementsByTagName("a")[0].setAttribute("href", linkToContent); //ссылка на контент
-		block.getElementsByClassName("title")[0].setAttribute("class") = data.films[i].nameRu; // Наименование контента
+		//block.getElementsByClassName("title")[0].setAttribute("class") = data.films[i].nameRu; // Наименование контента
 		block.getElementsByClassName("title")[0].textContent = data.films[i].nameRu; // Наименование контента
 		if (data.films[i].nameEn != "") block.getElementsByClassName("eng-title")[0].textContent = data.films[i].nameEn;
 		if (data.films[i].filmLength != "") block.getElementsByClassName("time")[0].textContent = data.films[i].filmLength;

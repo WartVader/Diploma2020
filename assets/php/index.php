@@ -5,10 +5,7 @@ include_once('user.php');
 include_once('content.php');
 include_once('favorite.php');
 include_once('rating.php');
-
-
-
-
+include_once('searchKP.php');
 // 2) проверка пользователя, если он вошел
 session_start();
 
@@ -56,6 +53,12 @@ switch ($method) {
         break;
     case 'unrate':
         $res = Unrate($_POST['id']);
+        break;
+    case 'searchKP_name':
+        $res = SearchKP_name($_POST['name']);
+        break;
+    case 'searchKP_id':
+        $res = SearchKP_id($_POST['id']);
         break;
 }
 

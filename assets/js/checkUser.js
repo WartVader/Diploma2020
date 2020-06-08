@@ -15,6 +15,7 @@ function GetUser() {
 	request.send();
 
 	if (request.status == 200) {
+		console.log(request.responseText);
 		data = JSON.parse(request.responseText);
 	}
 	if (data.id != null) {
