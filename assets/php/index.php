@@ -5,7 +5,7 @@ include_once('user.php');
 include_once('content.php');
 include_once('favorite.php');
 include_once('rating.php');
-include_once('searchKP.php');
+include_once('search.php');
 // 2) проверка пользователя, если он вошел
 session_start();
 
@@ -28,7 +28,9 @@ switch ($method) {
         $res = GetUserInfo();
         break;
     case 'loadContent':
-        $res = LoadContent();
+        /* echo json_encode($_POST['recomend']);
+        return true; */
+        $res = LoadContent($_POST['recomend']);
         break;
     case 'loadMainContent':
         $res = LoadMainContent($_POST);
@@ -55,10 +57,38 @@ switch ($method) {
         $res = Unrate($_POST['id']);
         break;
     case 'searchKP_name':
-        $res = SearchKP_name($_POST['name']);
+        if (isAdmin()) {
+            $res = SearchKP_name($_POST['name']);
+        } else {
+            $answer['error'] = "not allowed";
+            return $answer;
+        }
         break;
     case 'searchKP_id':
-        $res = SearchKP_id($_POST['id']);
+        if (isAdmin()) {
+            $res = SearchKP_id($_POST['id']);
+        } else {
+            $answer['error'] = "not allowed";
+            return $answer;
+        }
+        break;
+    case 'search':
+        $res = Search($_POST['name']);
+        break;
+    case 'checkReg':
+        $res = CheckReg($_POST);
+        break;
+    case 'recomend':
+        $res = Recomend($_POST['id']);
+        break;
+    case 'loadContentRecomend':
+        $res = LoadContent(true);
+        break;
+    case 'isRate':
+        $res = isRate($_POST['id']);
+        break;
+    case 'checkAdmin':
+        $res = isAdmin();
         break;
 }
 

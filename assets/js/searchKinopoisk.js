@@ -23,33 +23,6 @@ function SearchKP_name(name, year) {
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(send);
 
-	/* request.addEventListener("load", function () {
-		data = JSON.parse(request.responseText);
-		console.log(data);
-		if (request.status == 200) {
-			data = JSON.parse(request.responseText);
-			console.log("sch");
-			console.log(data.films);
-			let i = 0;
-			while (i < data.genres.length) {
-				data["fullGenres"] += data.genres[i].genre;
-				i++;
-				if (i != data.genres.length) data["fullGenres"] += ", ";
-			}
-			i = 0;
-			while (i < data.countries.length) {
-				data["fullCountries"] += data.countries[i].country;
-				i++;
-				if (i != data.countries.length) data["fullCountries"] += ", ";
-			}
-			//data = request.responseText;
-			//console.log(data);
-
-			DisplaySearchKP(data);
-			console.log(data);
-		}
-	}); */
-
 	return data;
 }
 
@@ -57,53 +30,35 @@ function SearchKP_id(id) {
 	var data;
 
 	var request = new XMLHttpRequest();
-	let send = "name=" + name;
+	let send = "id=" + id;
 	request.open("POST", "/assets/php/index.php?method=searchKP_id", true);
 	request.onload = function () {
-		data = JSON.parse(this.response);
-		//console.log(this.response);
-		if (data.Response != "False") {
-			data = JSON.parse(request.responseText);
-			console.log(data);
-			//console.log(responseText);
-			DisplaySearchKP(data);
-		} else {
-			var er404 = document.getElementById("not-found");
-			er404.hidden = false;
-			var block = document.getElementById("search-add-block");
-			block.hidden = true;
+		console.log(request.responseText);
+		data = JSON.parse(request.responseText);
+
+		let i = 0;
+		data["fullGenres"] = "";
+		data["fullCountries"] = "";
+		while (i < data.data.genres.length) {
+			data["fullGenres"] += data.data.genres[i].genre;
+			console.log(data.data.genres[i].genre);
+			i++;
+			if (i != data.data.genres.length) data["fullGenres"] += ", ";
 		}
+		i = 0;
+		while (i < data.data.countries.length) {
+			data["fullCountries"] += data.data.countries[i].country;
+			console.log(data.data.countries[i].country);
+			i++;
+			if (i != data.data.countries.length) data["fullCountries"] += ", ";
+		}
+		//data = request.responseText;
+		console.log(data);
+		AddContent_KP(data);
 	};
 
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(send);
-
-	/* request.addEventListener("load", function () {
-		data = JSON.parse(request.responseText);
-		console.log(data);
-		if (request.status == 200) {
-			data = JSON.parse(request.responseText);
-			console.log("sch");
-			console.log(data.films);
-			let i = 0;
-			while (i < data.genres.length) {
-				data["fullGenres"] += data.genres[i].genre;
-				i++;
-				if (i != data.genres.length) data["fullGenres"] += ", ";
-			}
-			i = 0;
-			while (i < data.countries.length) {
-				data["fullCountries"] += data.countries[i].country;
-				i++;
-				if (i != data.countries.length) data["fullCountries"] += ", ";
-			}
-			//data = request.responseText;
-			//console.log(data);
-
-			DisplaySearchKP(data);
-			console.log(data);
-		}
-	}); */
 
 	return data;
 }
@@ -163,7 +118,7 @@ function Search(where = "kinopoisk", returnData = false) {
 }
 
 $("#search-add").click(function () {});
-$("#add-content").click(function () {
+/* $("#add-content").click(function () {
 	let date = new Date(data.Released);
 
 	console.log(date);
@@ -181,3 +136,4 @@ $("#add-content").click(function () {
 		}
 	);
 });
+ */

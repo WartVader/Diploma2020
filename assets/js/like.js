@@ -28,7 +28,7 @@ function Unlike(id) {
 		function (msg) {
 			// получен ответ сервера
 			//data = JSON.parse(msg);
-			//console.log(msg);
+			console.log(msg);
 		}
 	);
 	ChangeStatus(id, false);

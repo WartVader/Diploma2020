@@ -50,3 +50,12 @@ function SearchKP_id($id)
 
     return $result;
 }
+
+function Search($name)
+{
+    include('settings.php');
+    $result = mysqli_query($connection, "SELECT * FROM `contents` WHERE `title` LIKE '%$name%'");
+    $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $row;
+}

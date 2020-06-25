@@ -9,13 +9,52 @@ function Registration()
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $r_password = mysqli_real_escape_string($connection, $_POST['r_password']);
     if ($password == $r_password) {
-
+        $password = password_hash($password, PASSWORD_BCRYPT);
         mysqli_query($connection, "INSERT INTO users(id, username, login, password, role) 
         VALUES ('', '$username', '$login', '$password', 'user')")  or die(mysqli_error($connection));
-    } else {
-        return "password is not correct";
+
+        $sql_login = sprintf("SELECT * FROM users WHERE login = '$login'");
+        $result = mysqli_query($connection, $sql_login);
+        $row = mysqli_fetch_assoc($result);
+
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['role'] = $row['role'];
+
+        setcookie("id", $row['id'], time() + 259200, '/');
+        setcookie("role", $row['role'], time() + 259200, '/');
+        setcookie("login", $login, time() + 259200, '/');
+        setcookie('username', $row['username'], time() + 259200, '/'); //будет храниться всего 3 дня, но можно и больше, конечно
+        return true;
     }
+    return false;
 }
+
+function CheckReg()
+{
+    session_start();
+    include('settings.php');
+    $login = mysqli_real_escape_string($connection, $_POST['login']);
+    $password = mysqli_real_escape_string($connection, $_POST['password']);
+    $r_password = mysqli_real_escape_string($connection, $_POST['r_password']);
+
+    $answer["login"] = true;
+    $answer["password"] = true;
+
+    $sql_login = sprintf("SELECT * FROM users WHERE login = '$login'");
+    $result = mysqli_query($connection, $sql_login);
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row != NULL) {
+        $answer["login"] = false;
+    }
+    if ($password != $r_password) {
+        $answer["password"] = false;
+    }
+
+    return $answer;
+}
+
 
 function Login()
 {
@@ -29,7 +68,7 @@ function Login()
     $sql_login = sprintf("SELECT * FROM users WHERE login = '$login'");
     $result = mysqli_query($connection, $sql_login);
     $row = mysqli_fetch_assoc($result);
-    if (md5($password . $salt . $login . $salt) === $row['password']) {
+    if (password_verify($password, $row['password'])) {
         $error = "";
         $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
@@ -52,6 +91,7 @@ function Login()
 function GetUserInfo()
 {
     $answer['id'] = $_COOKIE['id'];
+    $answer['role'] = $_COOKIE['role'];
     $answer['login'] = $_COOKIE['login'];
     $answer['username'] = $_COOKIE['username'];
     return ($answer);
@@ -84,4 +124,12 @@ function UserExit()
     echo $_COOKIE['login'];
     echo $_COOKIE['username'];
     header("Location: ../../index.html");
+}
+
+function isAdmin()
+{
+    if ($_COOKIE['role'] == "admin")
+        return true;
+    else
+        return false;
 }

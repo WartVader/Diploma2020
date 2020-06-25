@@ -9,6 +9,37 @@ function AddToFV()
     $id_content = $_POST['id'];
     mysqli_query($connection, "INSERT INTO `fv_contents`(id_user, id_content) 
     VALUES ($id_user, $id_content)")  or die(mysqli_error($connection));
+
+    $sql_contents = sprintf("SELECT `genres` FROM `contents` WHERE `id`=$id_content");
+    $result = mysqli_query($connection, $sql_contents);
+    $row = mysqli_fetch_assoc($result);
+
+    $id = $_COOKIE['id'];
+    $genres = preg_split("/,\s/", $row['genres']);
+    $point = 5;
+    $i = 0;
+    //var_dump($genres);
+    while ($i < count($genres)) {
+
+        $sql = sprintf("SELECT * FROM `user_recomendation` WHERE `id_user` = $id AND `genre` = '$genres[$i]'");
+        $result = mysqli_query($connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        if ($row) {
+            $sql = "
+            UPDATE `user_recomendation`
+            SET `point` = `point` + $point
+            WHERE `id_user` = $id AND `genre` = '$genres[$i]'";
+            $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+        } else {
+            //echo mysqli_error($connection) . $sql;
+            $sql = "
+            INSERT INTO `user_recomendation`(`id_user`, `genre`, `point`) 
+            VALUES ($id, '$genres[$i]', $point)";
+            $result = mysqli_query($connection, $sql)  or die(mysqli_error($connection));
+        }
+        $i++;
+    }
+
     return true;
 }
 
@@ -54,9 +85,39 @@ function RemoveFv()
     include('settings.php');
     /* mysqli_query($connection, "INSERT INTO `fv_content`(id_user, id_content) 
     VALUES (1, (int)$_POST["id"])")  or die(mysqli_error($connection)); */
-    $id_user = $_SESSION['id'];
-    $id_content = (int) $_POST['id'];
-    mysqli_query($connection, "DELETE FROM `fv_contents` 
-    WHERE `id_user` = $id_user AND `id_content` = $id_content")  or die(mysqli_error($connection));
+    $id_user = $_COOKIE['id'];
+    $id_content = $_POST['id'];
+    $sql = "DELETE FROM `fv_contents` WHERE `id_user` = '$id_user' AND `id_content` = '$id_content'";
+    mysqli_query($connection, $sql)  or die(mysqli_error($connection));
+
+    $sql_contents = sprintf("SELECT `genres` FROM `contents` WHERE `id`=$id_content");
+    $result = mysqli_query($connection, $sql_contents);
+    $row = mysqli_fetch_assoc($result);
+
+    $id = $_COOKIE['id'];
+    $genres = preg_split("/,\s/", $row['genres']);
+    $point = 5;
+    $i = 0;
+    //var_dump($genres);
+    while ($i < count($genres)) {
+
+        $sql = sprintf("SELECT * FROM `user_recomendation` WHERE `id_user` = $id AND `genre` = '$genres[$i]'");
+        $result = mysqli_query($connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        if ($row['point'] >= 5) {
+            $sql = "
+            UPDATE `user_recomendation`
+            SET `point` = `point` - $point
+            WHERE `id_user` = $id AND `genre` = '$genres[$i]'";
+            $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+        } else if (!$row) {
+            //echo mysqli_error($connection) . $sql;
+            $sql = "
+            INSERT INTO `user_recomendation`(`id_user`, `genre`, `point`) 
+            VALUES ($id, '$genres[$i]', 0)";
+            $result = mysqli_query($connection, $sql)  or die(mysqli_error($connection));
+        }
+        $i++;
+    }
     return true;
 }

@@ -24,27 +24,73 @@
 }
 */
 
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
 /* Main blocks in HTML */
 
 html {
+	height: 100%;
 	font-size: 16px;
 }
 
 body {
-	/* background-color: #f1f1f1 !important; */
+	height: 100%;
+	font-family: "Ubuntu", sans-serif !important;
+}
+
+.wrapper {
+	min-height: calc(100vh - 96px - 96px);
+	/* position: relative; */
+}
+.main-container {
+	min-height: 100%;
 }
 
 footer {
+	/* position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%; */
 	min-height: 6rem;
 }
 
 /* ========================================================= */
 
 /* My classes */
+.bg-banana {
+	background-color: #ffe135 !important;
+}
+
+.my-bg {
+	background: rgb(5, 7, 15);
+}
+
+.my-bg-grey {
+	background: rgb(20, 22, 30);
+}
+
+.bg-gradient-black-darkblue-to-down {
+	background: rgb(0, 0, 0);
+	background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 43, 74, 1) 100%);
+}
+.bg-gradient-black-darkblue-to-up {
+	background: rgb(0, 0, 0);
+	background: linear-gradient(180deg, rgba(0, 43, 74, 1) 0%, rgba(0, 0, 0, 1) 100%);
+}
+.my-border-top {
+	background: rgb(255, 255, 255);
+	background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 43, 74, 1) 35%, rgba(0, 24, 41, 1) 50%, rgba(0, 43, 74, 1) 65%, rgba(255, 255, 255, 1) 100%);
+	padding-top: 20px;
+}
+.my-border-bottom {
+	background: rgb(255, 255, 255);
+	background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 43, 74, 1) 35%, rgba(0, 24, 41, 1) 50%, rgba(0, 43, 74, 1) 65%, rgba(255, 255, 255, 1) 100%);
+	padding-bottom: 2px;
+}
 
 .p.container {
-	padding-left: 10rem;
-	padding-right: 10rem;
+	/* padding-left: 10rem;
+	padding-right: 10rem; */
 	padding-top: 3rem;
 }
 
@@ -88,13 +134,38 @@ button.icon-appear {
 }
 
 form.search {
-	border-radius: 15px !important;
+	/* border-radius: 15px !important; */
+
 	position: relative;
 }
 
 input.search {
+	background-color: transparent !important;
+	border: 1px solid rgb(255, 255, 255) !important;
 	border-radius: 0px;
-	width: 70% !important;
+	color: white !important;
+	font-size: 1.2rem;
+	/* border-color: rgba(75, 116, 145, 1) !important; */
+}
+
+input.search::-webkit-input-placeholder {
+	color: rgb(160, 160, 160);
+}
+input.search::-moz-placeholder {
+	color: rgb(160, 160, 160);
+}
+
+input.search :focus {
+	background-color: white !important;
+}
+
+.icon-search {
+	width: 1.2rem;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 button.search {
@@ -113,6 +184,7 @@ button.search.pos-abs {
 button.user {
 	background-color: rgba(255, 255, 255, 0) !important;
 	border: 0;
+	font-size: 1.5rem;
 }
 
 .fa-search {
@@ -121,7 +193,8 @@ button.user {
 }
 
 .fa-user {
-	color: #ffffffa4;
+	color: rgba(255, 255, 255, 0.5);
+	/*  */
 }
 
 input:focus {
@@ -138,6 +211,9 @@ button:focus {
 /* ========================================================= */
 
 /* For registration and login */
+.incorrect {
+	border: 1px solid #dc3545 !important;
+}
 
 .form-block {
 	padding-top: 10rem;
@@ -157,7 +233,8 @@ button:focus {
 	padding-bottom: 5rem;
 	padding-left: 5rem;
 	padding-right: 5rem;
-	background-color: rgb(179, 23, 82);
+	background-color: white;
+	border: 1px solid #007bff;
 }
 
 .none-selected {
@@ -167,7 +244,7 @@ button:focus {
 	padding-bottom: 3rem;
 	padding-left: 5rem;
 	padding-right: 5rem;
-	background-color: #302e2e;
+	/* background-color: #302e2e; */
 }
 
 /* ========================================================= */
@@ -291,13 +368,20 @@ button:focus {
 
 div.container {
 	/* background-color: white; */
-	min-height: calc(100vh - 5rem - 6rem);
+	/* min-height: calc(100vh - 5rem - 6rem); */
 }
 
 .navbar {
-	height: 5rem;
+	height: 6rem;
+	font-size: 1.2rem;
+	font-weight: 400;
 	margin-left: auto;
 	margin-right: auto;
+	padding-left: 10rem !important;
+	padding-right: 10rem !important;
 }
 
+li.active {
+	border: 1px solid white;
+}
 /* ========================================================= */

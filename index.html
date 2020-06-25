@@ -18,85 +18,95 @@
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous"
 		/>
+		<script src="assets/js/mergeSort.js"></script>
 	</head>
 	<body>
-		<div class="sticky-top bg-main-black-color">
-			<nav class="navbar navbar-expand-sm navbar-dark container">
-				<a class="navbar-brand" href="./index.html">Logo</a>
-				<button
-					class="navbar-toggler d-lg-none"
-					type="button"
-					data-toggle="collapse"
-					data-target="#collapsibleNavId"
-					aria-controls="collapsibleNavId"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="collapsibleNavId">
-					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-						<li class="nav-item active">
-							<a class="nav-link" href="./index.html">Главная<span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="./contents.html">Фильмы</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Сериалы</a>
-						</li>
-					</ul>
-					<form class="search bg-white form-inline my-2 my-lg-0">
-						<input class="border-0 search form-control ml-3 mr-sm-2" type="text" placeholder="Search" />
-						<button class="mx-auto search pos-abs border-0" type="submit">
-							<i class="fa fa-search fa-lg"> </i>
-						</button>
-					</form>
+		<div class="wrapper">
+			<div class="sticky-top my-bg">
+				<nav class="navbar navbar-expand-sm navbar-dark">
+					<a class="navbar-brand" href="./index.html">Logo</a>
+					<button
+						class="navbar-toggler d-lg-none"
+						type="button"
+						data-toggle="collapse"
+						data-target="#collapsibleNavId"
+						aria-controls="collapsibleNavId"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-					<ul hidden="true" id="login" class="ml-5 navbar-nav float-right">
-						<li class="nav-item">
-							<a id="" class="nav-link" href="./registration.html">Войти</a>
-						</li>
-					</ul>
-					<div class="ml-5 btn-group">
-						<button class="btn btn-secondary dropdown user" type="button" id="user-icon" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
-							<i class="far fa-user fa-2x"></i>
-						</button>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-icon">
-							<a class="dropdown-item" href="./profile.html">Профиль</a>
-							<a class="dropdown-item" href="#">Любимое</a>
-							<a id="add-new-content" class="dropdown-item" href="./add_content.html">Добавить новый контент</a>
-							<a class="dropdown-item" href="./assets/php/exit.php">Выйти</a>
+					<div class="collapse navbar-collapse" id="collapsibleNavId">
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li class="nav-item active">
+								<a class="nav-link" href="./index.html">Главная</a>
+							</li>
+							<li class="nav-item" id="film-link">
+								<a class="nav-link" href="./contents.html?type=film">Фильмы</a>
+							</li>
+							<li class="nav-item" id="serial-link">
+								<a class="nav-link" href="./contents.html?type=serial">Сериалы</a>
+							</li>
+						</ul>
+						<form id="search-content" class="search form-inline my-2 my-lg-0 d-flex align-items-center">
+							<input class="border-0 py-0 search form-control w-100" name="search" id="search-input" type="text" placeholder="Поиск" autocomplete="off" />
+							<button class="mx-auto search pos-abs border-0" type="submit">
+								<svg class="my-auto mx-auto icon-search" viewBox="0 0 21.48 21.59">
+									<path d="M21.48 20.18L14.8 13.5a8.38 8.38 0 1 0-1.43 1.4l6.69 6.69zM2 8.31a6.32 6.32 0 1 1 6.32 6.32A6.32 6.32 0 0 1 2 8.31z" fill="rgb(255,255,255)"></path>
+								</svg>
+							</button>
+						</form>
+
+						<ul hidden="true" id="login" class="ml-5 navbar-nav float-right">
+							<li class="nav-item d-flex">
+								<a id="" class="nav-link pr-0" href="./registration.html?action=login">Войти/</a>
+								<a id="" class="nav-link pl-0" href="./registration.html?action=registration">Регистрация</a>
+							</li>
+						</ul>
+						<div class="ml-5 btn-group">
+							<button class="btn btn-secondary dropdown user" type="button" id="user-icon" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+								<i class="far fa-user fa-2x"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-icon">
+								<a class="dropdown-item" href="./profile.html">Профиль</a>
+								<a class="dropdown-item" href="./add_content.html" id="add-new-content">Добавить новый контент</a>
+								<a class="dropdown-item" href="./assets/php/index.php?method=exit">Выйти</a>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="p main-container container bg-white d-flex justify-content-center">
+				<div class="content d-flex flex-wrap">
+					<div hidden="true" id="" class="content-block mb-4">
+						<div class="poster-block position-relative">
+							<a href="" class="poster-link overflow-hidden">
+								<img class="poster" src="" alt="" />
+							</a>
+							<button onclick="" class="icon-appear clear position-absolute">
+								<i class="far fa-heart"></i>
+							</button>
 						</div>
 					</div>
 				</div>
-			</nav>
-		</div>
-		<div class="p container bg-white">
-			<div class="content d-flex flex-wrap justify-content-center">
-				<div hidden="true" id="" class="content-block mb-4">
-					<div class="poster-block position-relative">
-						<a href="" class="poster-link overflow-hidden">
-							<img class="poster" src="" alt="" />
-						</a>
-						<button onclick="" class="icon-appear clear position-absolute">
-							<i class="far fa-heart"></i>
-						</button>
+			</div>
+			<footer class="my-bg">
+				<div class="container text-white navbar-fixed-bottom d-flex flex-column justify-content-center">
+					<a class="mt-5 mb-1 mx-auto text-white" href="#">Logo</a>
+					<div class="my-auto px-2 py-5">
+						<div class="d-flex justify-content-around w-100">
+							<a class="align-self-center text-white" href="./index.html">Главная</a>
+							<a class="align-self-center text-white" href="./contents.html?type=film">Фильмы</a>
+							<a class="align-self-center text-white" href="./contents.html?type=serial">Сериалы</a>
+							<!-- <a class="align-self-center text-white" href="./profile.html">Профиль</a> -->
+						</div>
 					</div>
 				</div>
-			</div>
+				<div class="my-bg-grey text-light text-center">2020</div>
+			</footer>
 		</div>
-		<footer class="container bg-main-black-color navbar-fixed-bottom d-flex flex-column justify-content-center">
-			<a class="mt-3 mx-auto text-white" href="#">Logo</a>
-			<div class="my-auto px-5 py-4">
-				<div class="d-flex justify-content-around w-100">
-					<a class="align-self-center text-light" href="index.html">Главная</a>
-					<a class="align-self-center text-light" href="">Помощь</a>
-					<a class="align-self-center text-light" href="">Контакты</a>
-					<a class="align-self-center text-light" href="">О нас</a>
-				</div>
-			</div>
-		</footer>
+
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -115,11 +125,14 @@
 		<script src="assets/js/like.js"></script>
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
+		<script src="assets/js/search.js"></script>
 
 		<script>
 			$(document).ready(function () {
-				LoadMini();
-				var user = GetUser();
+				//var user = GetUser();
+				if (USER.id != null) LoadMini(true);
+				else LoadMini(false);
+
 				console.log(user);
 			});
 		</script>

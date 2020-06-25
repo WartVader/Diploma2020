@@ -23,8 +23,8 @@
 		/>
 	</head>
 	<body>
-		<div class="sticky-top bg-main-black-color">
-			<nav class="navbar navbar-expand-sm navbar-dark container">
+		<div class="sticky-top my-bg">
+			<nav class="navbar navbar-expand-sm navbar-dark">
 				<a class="navbar-brand" href="./index.html">Logo</a>
 				<button
 					class="navbar-toggler d-lg-none"
@@ -37,28 +37,32 @@
 				>
 					<span class="navbar-toggler-icon"></span>
 				</button>
+
 				<div class="collapse navbar-collapse" id="collapsibleNavId">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-						<li class="nav-item active">
-							<a class="nav-link" href="./index.html">Главная<span class="sr-only">(current)</span></a>
+						<li class="nav-item">
+							<a class="nav-link" href="./index.html">Главная</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./contents.html">Фильмы</a>
+							<a class="nav-link" href="./contents.html?type=film">Фильмы</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Сериалы</a>
+							<a class="nav-link" href="./contents.html?type=serial">Сериалы</a>
 						</li>
 					</ul>
-					<form class="search bg-white form-inline my-2 my-lg-0">
-						<input class="border-0 search form-control ml-3 mr-sm-2" type="text" placeholder="Search" />
+					<form id="search-content" class="search form-inline my-2 my-lg-0 d-flex align-items-center">
+						<input class="border-0 py-0 search form-control w-100" name="search" id="search-input" type="text" placeholder="Поиск" autocomplete="off" />
 						<button class="mx-auto search pos-abs border-0" type="submit">
-							<i class="fa fa-search fa-lg"> </i>
+							<svg class="my-auto mx-auto icon-search" viewBox="0 0 21.48 21.59">
+								<path d="M21.48 20.18L14.8 13.5a8.38 8.38 0 1 0-1.43 1.4l6.69 6.69zM2 8.31a6.32 6.32 0 1 1 6.32 6.32A6.32 6.32 0 0 1 2 8.31z" fill="rgb(255,255,255)"></path>
+							</svg>
 						</button>
 					</form>
 
 					<ul hidden="true" id="login" class="ml-5 navbar-nav float-right">
-						<li class="nav-item">
-							<a id="" class="nav-link" href="./registration.html">Войти</a>
+						<li class="nav-item d-flex">
+							<a id="" class="nav-link pr-0" href="./registration.html?action=login">Войти/</a>
+							<a id="" class="nav-link pl-0" href="./registration.html?action=registration">Регистрация</a>
 						</li>
 					</ul>
 					<div class="ml-5 btn-group">
@@ -67,9 +71,8 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-icon">
 							<a class="dropdown-item" href="./profile.html">Профиль</a>
-							<a class="dropdown-item" href="#">Любимое</a>
-							<a id="add-new-content" class="dropdown-item" href="./add_content.html">Добавить новый контент</a>
-							<a class="dropdown-item" href="./assets/php/exit.php">Выйти</a>
+							<a class="dropdown-item" href="./add_content.html" id="add-new-content">Добавить новый контент</a>
+							<a class="dropdown-item" href="./assets/php/index.php?method=exit">Выйти</a>
 						</div>
 					</div>
 				</div>
@@ -81,11 +84,9 @@
 				<!-- https://www.kinopoisk.ru/index.php?kp_query= -->
 				<!-- Это get запрос на поиск в кинопоиске -->
 				<div class="d-flex justify-content-center mb-5">
-					<form id="form" class="d-flex justify-content-center">
-						<input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
-						<input type="text" class="form-control mr-5" name="year" id="year" placeholder="Год выпуска" value="" />
-
-						<input type="submit" class="btn btn-primary" value="Поиск" />
+					<form id="form" class="d-flex">
+						<input type="text" class="rounded-0 form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
+						<input type="submit" class="rounded-0 btn btn-primary" value="Поиск" />
 					</form>
 
 					<!-- <input type="text" class="form-control mr-5" name="name" id="name" placeholder="Наименование фильма" value="" />
@@ -136,9 +137,14 @@
 		<script src="assets/js/like.js"></script>
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
+		<script src="assets/js/content.js"></script>
 		<script src="assets/js/searchKinopoisk.js"></script>
 
 		<script>
+			console.log(USER);
+			if (USER.role != "admin") {
+				document.location.href = "http://diplom/index.html";
+			}
 			var request = new XMLHttpRequest();
 			$("#form").submit(function (e) {
 				e.preventDefault();

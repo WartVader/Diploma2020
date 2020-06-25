@@ -13,6 +13,25 @@ function RateContent(id, rating) {
 	);
 }
 
+function isRate(id) {
+	var request = new XMLHttpRequest();
+	let send = "id=" + id;
+	let data;
+	if (USER.id != null) {
+		request.open("POST", "/assets/php/index.php?method=isRate", true);
+		request.onload = function () {
+			data = JSON.parse(request.responseText);
+
+			console.log(data);
+		};
+
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(send);
+	}
+
+	return data;
+}
+
 function Unrate(id) {
 	let url = new URL(document.URL);
 	if (!id) {

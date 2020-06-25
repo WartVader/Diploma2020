@@ -19,8 +19,8 @@
 		/>
 	</head>
 	<body>
-		<div class="sticky-top bg-main-black-color">
-			<nav class="navbar navbar-expand-sm navbar-dark container">
+		<div class="sticky-top my-bg">
+			<nav class="navbar navbar-expand-sm navbar-dark">
 				<a class="navbar-brand" href="./index.html">Logo</a>
 				<button
 					class="navbar-toggler d-lg-none"
@@ -33,28 +33,32 @@
 				>
 					<span class="navbar-toggler-icon"></span>
 				</button>
+
 				<div class="collapse navbar-collapse" id="collapsibleNavId">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-						<li class="nav-item active">
-							<a class="nav-link" href="./index.html">Главная<span class="sr-only">(current)</span></a>
-						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./contents.html">Фильмы</a>
+							<a class="nav-link" href="./index.html">Главная</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Сериалы</a>
+						<li class="nav-item" id="film-link">
+							<a class="nav-link" href="./contents.html?type=film">Фильмы</a>
+						</li>
+						<li class="nav-item" id="serial-link">
+							<a class="nav-link" href="./contents.html?type=serial">Сериалы</a>
 						</li>
 					</ul>
-					<form class="search bg-white form-inline my-2 my-lg-0">
-						<input class="border-0 search form-control ml-3 mr-sm-2" type="text" placeholder="Search" />
+					<form id="search-content" class="search form-inline my-2 my-lg-0 d-flex align-items-center">
+						<input class="border-0 py-0 search form-control w-100" name="search" id="search-input" type="text" placeholder="Поиск" autocomplete="off" />
 						<button class="mx-auto search pos-abs border-0" type="submit">
-							<i class="fa fa-search fa-lg"> </i>
+							<svg class="my-auto mx-auto icon-search" viewBox="0 0 21.48 21.59">
+								<path d="M21.48 20.18L14.8 13.5a8.38 8.38 0 1 0-1.43 1.4l6.69 6.69zM2 8.31a6.32 6.32 0 1 1 6.32 6.32A6.32 6.32 0 0 1 2 8.31z" fill="rgb(255,255,255)"></path>
+							</svg>
 						</button>
 					</form>
 
 					<ul hidden="true" id="login" class="ml-5 navbar-nav float-right">
-						<li class="nav-item">
-							<a id="" class="nav-link" href="./registration.html">Войти</a>
+						<li class="nav-item d-flex">
+							<a id="" class="nav-link pr-0" href="./registration.html?action=login">Войти/</a>
+							<a id="" class="nav-link pl-0" href="./registration.html?action=registration">Регистрация</a>
 						</li>
 					</ul>
 					<div class="ml-5 btn-group">
@@ -63,65 +67,88 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-icon">
 							<a class="dropdown-item" href="./profile.html">Профиль</a>
-							<a class="dropdown-item" href="#">Любимое</a>
-							<a id="add-new-content" class="dropdown-item" href="./add_content.html">Добавить новый контент</a>
-							<a class="dropdown-item" href="./assets/php/exit.php">Выйти</a>
+							<a class="dropdown-item" href="./add_content.html" id="add-new-content">Добавить новый контент</a>
+							<a class="dropdown-item" href="./assets/php/index.php?method=exit">Выйти</a>
 						</div>
 					</div>
 				</div>
 			</nav>
 		</div>
-		<div class="p container bg-white pb-5">
-			<div hidden="true" class="content-block main-info mb-5">
-				<div class="poster-block position-relative overflow-hidden">
-					<a href="" class="poster-link">
-						<img class="poster" src="" alt="" />
-					</a>
-					<button onclick="" class="icon-appear clear position-absolute">
-						<i class="far fa-heart"></i>
-					</button>
-				</div>
-
-				<div class="ml-5 block-info flex-grow-1">
-					<div class="full-info">
-						<h1 class="title"></h1>
-						<div class="description"></div>
+		<div class="p main-container container bg-white pb-5">
+			<div class="content">
+				<div hidden="true" class="content-block main-info mb-5">
+					<div class="poster-block position-relative overflow-hidden">
+						<a href="" class="poster-link">
+							<img class="poster" src="" alt="" />
+						</a>
+						<button onclick="" class="icon-appear clear position-absolute">
+							<i class="far fa-heart"></i>
+						</button>
 					</div>
-					<div class="rating-block">
-						<div class="mb-5 rating">
-							<div class="float-left align-middle">
-								<!-- <i id="full-star" class="fas fa-star float-left d-inline align-middle"></i> -->
-								<h3 class="float-left d-inline align-middle mr-2" id="users-rating"></h3>
-								<button class="btn btn-primary float-right d-inline align-middle" id="rate">Оценить</button>
-							</div>
 
-							<h3 class="float-right" id="imdb-rating"></h3>
+					<div class="ml-5 block-info flex-grow-1">
+						<div class="full-info">
+							<h1 class="title"></h1>
+							<div class="description"></div>
 						</div>
+						<div class="rating-block">
+							<div class="mb-5 rating">
+								<div class="float-left align-middle">
+									<!-- <i id="full-star" class="fas fa-star float-left d-inline align-middle"></i> -->
+									<div class="float-left">
+										<h3 class="d-inline align-middle mr-2 mb-0 users-rating" id="users-rating"></h3>
+										<div>Рейтинг</div>
+									</div>
 
-						<!-- <div id="stars" class="stars-rating">
-							<div hidden="true">
-								<i id="full-star" class="fas fa-star"></i>
-								<i id="half-star" class="fas fa-star-half"></i>
-								<i id="empty-star" class="far fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
+									<!-- <button
+												class="btn btn-star-active float-right align-middle"
+												type="button"
+												data-toggle="collapse"
+												data-target="#RateThisContent"
+												aria-expanded="false"
+												aria-controls="collapseExample"
+											>
+												<i id="star-status" class="far fa-star"></i>
+											</button> -->
+								</div>
+								<div class="float-right px-2">
+									<h3 class="imdb-rating"></h3>
+									<div>IMDB</div>
+								</div>
+								<div class="float-right px-2">
+									<h3 class="kp-rating"></h3>
+									<div>Кинопоиск</div>
+								</div>
 							</div>
-						</div> -->
+
+							<!-- <div id="stars" class="stars-rating">
+								<div hidden="true">
+									<i id="full-star" class="fas fa-star"></i>
+									<i id="half-star" class="fas fa-star-half"></i>
+									<i id="empty-star" class="far fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</div>
+							</div> -->
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<footer class="container bg-main-black-color navbar-fixed-bottom d-flex flex-column justify-content-center">
-			<a class="mt-3 mx-auto text-white" href="#">Logo</a>
-			<div class="my-auto px-5 py-4">
-				<div class="d-flex justify-content-around w-100">
-					<a class="align-self-center text-light" href="index.html">Главная</a>
-					<a class="align-self-center text-light" href="">Помощь</a>
-					<a class="align-self-center text-light" href="">Контакты</a>
-					<a class="align-self-center text-light" href="">О нас</a>
+		<footer class="my-bg">
+			<div class="container text-white navbar-fixed-bottom d-flex flex-column justify-content-center">
+				<a class="mt-5 mb-1 mx-auto text-white" href="#">Logo</a>
+				<div class="my-auto px-2 py-5">
+					<div class="d-flex justify-content-around w-100">
+						<a class="align-self-center text-white" href="./index.html">Главная</a>
+						<a class="align-self-center text-white" href="./contents.html?type=film">Фильмы</a>
+						<a class="align-self-center text-white" href="./contents.html?type=serial">Сериалы</a>
+						<!-- <a class="align-self-center text-white" href="./profile.html">Профиль</a> -->
+					</div>
 				</div>
 			</div>
+			<div class="my-bg-grey text-light text-center">2020</div>
 		</footer>
 
 		<!-- Optional JavaScript -->
@@ -137,17 +164,33 @@
 			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 			crossorigin="anonymous"
 		></script>
-
+		<script src="assets/js/ratingDisplay.js"></script>
 		<script src="assets/js/checkUser.js"></script>
 		<script src="assets/js/like.js"></script>
 		<script src="assets/js/displayCards.js"></script>
 		<script src="assets/js/loadContent.js"></script>
+		<script src="assets/js/search.js"></script>
+
 		<script>
+			let url = new URL(document.URL);
+			var search = url.searchParams.get("search");
+			if (search) {
+				document.getElementById("search-input").setAttribute("value", search);
+			}
+			var type = url.searchParams.get("type");
+			if (type == "film") {
+				document.getElementById("film-link").setAttribute("class", "nav-item active");
+			} else if (type == "serial") {
+				document.getElementById("serial-link").setAttribute("class", "nav-item active");
+			}
 			var data; //Данные о контенте
-			var user = GetUser();
-			console.log(user);
+			//var user = GetUser();
 			$(document).ready(function () {
-				LoadFull();
+				if (search) {
+					data = Search(search);
+					console.log(data, search);
+					DisplayFullData(data);
+				} else LoadFull(type);
 			});
 		</script>
 	</body>
